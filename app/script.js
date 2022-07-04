@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { render } from 'react-dom';
 import { useState } from 'react';
 
@@ -6,18 +6,43 @@ const App = () => {
   const [status, setStatus] = useState('off');
   const [time, setTime] = useState(0);
   const [timer, setTimer] = useState(null);
+  const [isActive, setActive] = useState(false);
 
   const startTimer = () => {
     setTime(1200);
     setStatus('work');
     setTimer(
       setInterval(() => {
-        setTime((time) => time + 1);
-      })
+        setTime((time) => time - 1);
+      }, 10)
     );
+    if (time === 0) {
+      status === 'work'
+        ? setStatus('rest') && setTime(20)
+        : setStatus('work') && setTime(1200);
+    }
   };
-  let seconds = String(Math.floor(time)).padStart(2, '0');
-  let minutes = String(Math.floor(seconds / 60)).padStart(2, '0');
+
+  // useEffect(() => {
+  //   if (isActive) {
+  //     setTime(1200);
+  //     setStatus('work');
+  //     setTimer(
+  //       setInterval(() => {
+  //         setTime((time) => time - 1);
+  //         console.log(time);
+  //       }, 10)
+  //     );
+  //     if (time === 0) {
+  //       status === 'work'
+  //         ? setStatus('rest') && setTime(20)
+  //         : setStatus('work') && setTime(1200);
+  //     }
+  //   }
+  // }, [isActive]);
+
+  let seconds = String(Math.floor(time % 60)).padStart(2, '0');
+  let minutes = String(Math.floor(time / 60)).padStart(2, '0');
 
   return (
     <div>
