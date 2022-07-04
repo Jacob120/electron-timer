@@ -13,7 +13,7 @@ const App = () => {
     setTimer(
       setInterval(() => {
         setTime((time) => time - 1);
-      }, 50)
+      }, 50) // left lower number for easy testing - should be 1000
     );
   };
 
@@ -21,7 +21,9 @@ const App = () => {
     setTimer(null);
     setTime(null);
     setStatus('off');
+    clearInterval(timer);
   };
+
   const playBell = () => {
     const bell = new Audio('./sounds/bell.wav');
     bell.play();
