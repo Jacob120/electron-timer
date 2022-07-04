@@ -4,9 +4,8 @@ import { useState } from 'react';
 
 const App = () => {
   const [status, setStatus] = useState('off');
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(null);
   const [timer, setTimer] = useState(null);
-  const [isActive, setActive] = useState(false);
 
   const startTimer = () => {
     setTime(1200);
@@ -14,36 +13,28 @@ const App = () => {
     setTimer(
       setInterval(() => {
         setTime((time) => time - 1);
-      }, 10)
+      }, 50)
     );
-    if (time === 0) {
-      status === 'work'
-        ? setStatus('rest') && setTime(20)
-        : setStatus('work') && setTime(1200);
-    }
   };
 
-  // useEffect(() => {
-  //   if (isActive) {
-  //     setTime(1200);
-  //     setStatus('work');
-  //     setTimer(
-  //       setInterval(() => {
-  //         setTime((time) => time - 1);
-  //         console.log(time);
-  //       }, 10)
-  //     );
-  //     if (time === 0) {
-  //       status === 'work'
-  //         ? setStatus('rest') && setTime(20)
-  //         : setStatus('work') && setTime(1200);
-  //     }
-  //   }
-  // }, [isActive]);
+  useEffect(() => {
+    if (time === 0) {
+      if (status === 'work') {
+        setStatus('rest');
+        setTime(20);
+      } else {
+        setStatus('work');
+        setTime(1200);
+      }
+      // status === 'work'
+      //   ? setStatus('rest') && setTime(20)
+      //   : setStatus('work') && setTime(1200);
+    }
+  }, [time]);
 
   const stopTimer = () => {
     setTimer(null);
-    setTime(0);
+    setTime(null);
     setStatus('off');
   };
 
@@ -82,8 +73,14 @@ const App = () => {
           Start
         </button>
       )}
-      {status !== 'off' && <button className='btn' onClick={stopTimer}>Stop</button>}
-      <button className='btn btn-close' onClick={closeApp}>X</button>
+      {status !== 'off' && (
+        <button className='btn' onClick={stopTimer}>
+          Stop
+        </button>
+      )}
+      <button className='btn btn-close' onClick={closeApp}>
+        X
+      </button>
     </div>
   );
 };
