@@ -41,6 +41,16 @@ const App = () => {
   //   }
   // }, [isActive]);
 
+  const stopTimer = () => {
+    setTimer(null);
+    setTime(0);
+    setStatus('off');
+  };
+
+  const closeApp = () => {
+    window.close();
+  };
+
   let seconds = String(Math.floor(time % 60)).padStart(2, '0');
   let minutes = String(Math.floor(time / 60)).padStart(2, '0');
 
@@ -72,8 +82,8 @@ const App = () => {
           Start
         </button>
       )}
-      {status !== 'off' && <button className='btn'>Stop</button>}
-      <button className='btn btn-close'>X</button>
+      {status !== 'off' && <button className='btn' onClick={stopTimer}>Stop</button>}
+      <button className='btn btn-close' onClick={closeApp}>X</button>
     </div>
   );
 };
