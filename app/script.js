@@ -17,8 +17,19 @@ const App = () => {
     );
   };
 
+  const stopTimer = () => {
+    setTimer(null);
+    setTime(null);
+    setStatus('off');
+  };
+  const playBell = () => {
+    const bell = new Audio('./sounds/bell.wav');
+    bell.play();
+  };
+
   useEffect(() => {
     if (time === 0) {
+      playBell();
       if (status === 'work') {
         setStatus('rest');
         setTime(20);
@@ -31,12 +42,6 @@ const App = () => {
       //   : setStatus('work') && setTime(1200);
     }
   }, [time]);
-
-  const stopTimer = () => {
-    setTimer(null);
-    setTime(null);
-    setStatus('off');
-  };
 
   const closeApp = () => {
     window.close();
