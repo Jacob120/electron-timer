@@ -39,10 +39,6 @@ const App = () => {
         setStatus('work');
         setTime(1200);
       }
-      /* zostawione do konsultacji */
-      // status === 'work'
-      //   ? setStatus('rest') && setTime(20)
-      //   : setStatus('work') && setTime(1200);
     }
   }, [time]);
 
